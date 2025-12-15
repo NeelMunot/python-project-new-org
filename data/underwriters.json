@@ -1,0 +1,9 @@
+[
+    {
+        "uid": 1001,
+        "name": "Test User",
+        "dob": "1990-01-01",
+        "joining_date": "2023-01-01",
+        "password": "Pass@123"
+    }
+]

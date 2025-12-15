@@ -1,0 +1,16 @@
+[
+    {
+        "policy_no": 2001,
+        "vehicle_no": "KA 01 AB 1234",
+        "vehicle_type": "4-wheeler",
+        "customer_name": "Cust Name",
+        "engine_no": 123,
+        "chasis_no": 456,
+        "phone_no": 9876543210,
+        "policy_type": "Full Insurance",
+        "premium_amt": 3000.0,
+        "from_date": "2023-01-01",
+        "to_date": "2024-01-01",
+        "underwriter_id": 1001
+    }
+]
