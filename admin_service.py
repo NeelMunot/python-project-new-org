@@ -102,7 +102,12 @@ def update_underwriter_password():
                 break
         
         if found_idx != -1:
-            new_password = input("Enter New Password: ")
+            while True:
+                new_password = input("Enter New Password (Alphanumeric + Special Char): ")
+                if validate_password(new_password):
+                    break
+                print("Password must be alphanumeric and contain at least one special character!")
+            
             underwriters[found_idx]['password'] = new_password
             save_data(UNDERWRITERS_FILE, underwriters)
             print("Password Updated Successfully!")

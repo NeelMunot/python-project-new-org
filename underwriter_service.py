@@ -1,6 +1,6 @@
 from database import load_data, save_data, get_next_id, UNDERWRITERS_FILE, POLICIES_FILE
 from models import VehiclePolicy
-from utils import validate_date, add_days, get_current_date, calculate_premium
+from utils import validate_date, add_days, get_current_date, calculate_premium, validate_vehicle_no, validate_phone_no, validate_vehicle_type, validate_policy_type
 
 def underwriter_login():
     print("\n--- UnderWriter Login ---")
@@ -22,19 +22,40 @@ def underwriter_login():
 
 def create_vehicle_insurance(underwriter_id):
     print("\n--- Create New Vehicle Insurance ---")
-    vehicle_no = input("Enter Vehicle No: ")
-    vehicle_type = input("Enter Vehicle Type (2-wheeler/4-wheeler): ")
+    
+    while True:
+        vehicle_no = input("Enter Vehicle No (e.g., KA01 AB1234): ")
+        if validate_vehicle_no(vehicle_no):
+            break
+        print("Invalid Vehicle No! Must contain a space and be alphanumeric.")
+
+    while True:
+        vehicle_type = input("Enter Vehicle Type (2-wheeler/4-wheeler): ")
+        if validate_vehicle_type(vehicle_type):
+            break
+        print("Invalid Vehicle Type! Must be '2-wheeler' or '4-wheeler'.")
+
     customer_name = input("Enter Customer Name: ")
     
     try:
         engine_no = int(input("Enter Engine No: "))
         chasis_no = int(input("Enter Chasis No: "))
-        phone_no = int(input("Enter Phone No: "))
+        
+        while True:
+            phone_no = int(input("Enter Phone No (10 digits): "))
+            if validate_phone_no(phone_no):
+                break
+            print("Invalid Phone No! Must be 10 digits.")
+            
     except ValueError:
         print("Invalid numeric input!")
         return
 
-    policy_type = input("Enter Policy Type (Full Insurance/ThirdParty): ")
+    while True:
+        policy_type = input("Enter Policy Type (Full Insurance/ThirdParty): ")
+        if validate_policy_type(policy_type):
+            break
+        print("Invalid Policy Type! Must be 'Full Insurance' or 'ThirdParty'.")
     
     while True:
         from_date = input("Enter From Date (YYYY-MM-DD): ")
@@ -76,6 +97,9 @@ def renew_policy(underwriter_id):
         if confirm.upper() == 'R':
             try:
                 new_premium = float(input("Enter Updated Premium Amount: "))
+                if new_premium <= 0:
+                    print("Premium amount must be positive.")
+                    return
             except ValueError:
                 print("Invalid Amount")
                 return
